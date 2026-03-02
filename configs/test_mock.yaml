@@ -1,0 +1,30 @@
+# Test configuration using mock provider (no API keys needed)
+
+description: "Test run with mock model"
+
+rollout_model:
+  provider: mock
+  name: mock-model
+
+monitor_model:
+  provider: mock
+  name: mock-model
+
+sft_model:
+  hf_model_id: meta-llama/Meta-Llama-3.1-8B-Instruct
+  output_dir: data/sft_models
+
+splits:
+  train:
+    - moltbook_influence
+
+env:
+  max_turns: 3
+
+monitor:
+  name: heuristic
+
+n_rollouts: 10
+temperature: 0.7
+max_tokens: 512
+data_path: data/experiments

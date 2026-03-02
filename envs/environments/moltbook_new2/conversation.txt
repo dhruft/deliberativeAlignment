@@ -1,0 +1,5 @@
+[Optional: Provide context, existing conversation, or scenario setup]
+
+Example:
+- Previous message or event
+- Current state of the situation

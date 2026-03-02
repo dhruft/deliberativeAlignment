@@ -1,0 +1,57 @@
+# Full deliberative alignment training configuration
+
+description: "Deliberative alignment training with safety spec injection"
+
+# Model for generating rollouts during --collect
+rollout_model:
+  provider: together
+  name: meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo
+
+# Model to use during --test (optional; falls back to rollout_model if absent)
+# Set this to your fine-tuned / local model so the config never needs to
+# change between --collect and --test runs.
+test_model:
+  provider: mlx
+  name: data/local_models_mlx  # 4-bit quantized fine-tuned model, ~5GB
+
+# Model for evaluating rollouts (monitor model)
+monitor_model:
+  provider: together
+  name: meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo
+
+# Model to fine-tune via Together AI fine-tuning API
+sft_model:
+  model: meta-llama/Meta-Llama-3.1-8B-Instruct-Reference
+  output_dir: data/sft_models
+  n_epochs: 3
+  batch_size: 8
+  learning_rate: 1e-5
+  suffix: scheming-sft
+
+# Environment splits for collect/test
+splits:
+  train:
+    - moltbook_evil
+    - moltbook_moderation
+  test:
+    - moltbook_evaluation
+    - moltbook_new
+
+# Default env settings (applies to all envs in splits)
+env:
+  max_turns: 1
+
+# Engine settings
+engine:
+  inject_safety_spec: true  # Prepend AS1-GP4 rules (collect phase only)
+  # safety_spec_path: "engine/safety_spec.txt"  # Optional custom path
+
+# Monitor settings
+monitor:
+  name: deliberative
+  params: {}
+
+n_rollouts: 10  # Per environment
+temperature: 0.7
+max_tokens: 2048
+data_path: data/experiments

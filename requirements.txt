@@ -1,0 +1,10 @@
+openai>=1.0.0
+anthropic>=0.18.0
+together>=1.2.0
+pyyaml>=6.0
+pandas>=2.0.0
+matplotlib>=3.7.0
+seaborn>=0.12.0
+tqdm>=4.65.0
+python-dotenv>=1.0.0
+mlx-lm>=0.16.0  # Apple Silicon local inference (Mac M-series only)
