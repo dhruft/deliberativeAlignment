@@ -1,3 +1,5 @@
+LaTeX Instructions: https://www.overleaf.com/read/mfqgfrddjqvy#868fc1
+
 # Project Summary
 
 This goal of the project is to train an LLM to adhere to certain safety specifications that prevent scheming. This is done by collecting rollouts in environments where the goal of the agent is in tension with the safety specifications. These rollouts are labeled by a monitor. The rollouts classified as honest are then used to train a new LLM to find the delicate balance between antischeming and anti-overrefusal. 
